@@ -156,6 +156,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
 	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -25y 0w 0h" } },
 	{ MODKEY,                       XK_Right,  moveresize,     {.v = "25x 0y 0w 0h" } },
