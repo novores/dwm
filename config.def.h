@@ -35,10 +35,11 @@ static const char *const autostart[] = {
   "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
   "xbanish", NULL,
   "usermount", NULL,
-  "xrdb", "/home/novores/.Xresources", NULL,
   "xbacklight", "-set", "50", NULL,
   "sh", "-c", "xset s 240 60; xset dpms 301;xss-lock -n ~/.local/bin/dim-screen.sh -- betterlockscreen --lock &", NULL,
-  "sh", "-c", "pkill bar.sh; /home/novores/.local/bin/dwmstatus", NULL,
+  "xrdb", "/home/novores/.Xresources", NULL,
+  "sh", "-c", "/home/novores/.local/bin/dwmstatus", NULL,
+  "sh", "-c", "/home/novores/.local/bin/battery.sh", NULL,
   "xcompmgr", "-c", "-C", "-t-5", "-l-5", "-r4.2", "-o.55", NULL,
 	NULL /* terminate */
 };
