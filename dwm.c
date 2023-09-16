@@ -245,7 +245,10 @@ static void tagmon(const Arg *arg);
 static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
+<<<<<<< HEAD
 static void toggleopacity(const Arg *arg);
+=======
+>>>>>>> 31b01809c4fbcc16b383ea404560effbc43085a5
 static void togglefullscr(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
@@ -2332,6 +2335,7 @@ togglefullscr(const Arg *arg)
 }
 
 void
+<<<<<<< HEAD
 toggleopacity(const Arg *arg) {
 	bUseOpacity = !bUseOpacity;
 	for (Monitor* m = mons; m; m = m->next)
@@ -2340,6 +2344,8 @@ toggleopacity(const Arg *arg) {
 }
 
 void
+=======
+>>>>>>> 31b01809c4fbcc16b383ea404560effbc43085a5
 toggletag(const Arg *arg)
 {
 	unsigned int newtags;
