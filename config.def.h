@@ -33,7 +33,7 @@ static const char *colors[][3] = {
 };
 
 static const char *const autostart[] = {
-  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/background.png", NULL,
+  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/feet-on-the-dashboard.png", NULL,
   "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
   "xbanish", NULL,
   "usermount", NULL,
@@ -61,7 +61,7 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
   {"qutebrowser",             NULL,       NULL,       1 << 1,       0,           -1},
-  {"Firefox",                 NULL,       NULL,       1 << 1,       0,           -1},
+  {"firefox",                 NULL,       NULL,       1 << 1,       0,           -1},
   {"Soffice",             NULL,       NULL,       1 << 2,       0,           -1},
   {"Inkscape",                NULL,       NULL,       1 << 3,       0,           -1},
   {"Gimp",                    NULL,       NULL,       1 << 3,       0,           -1},
@@ -165,6 +165,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+  { MODKEY|ControlMask,           XK_q,        quit,         {0} }, 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -174,7 +175,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-  { MODKEY|ControlMask,           XK_q,        quit,         {0} }, 
 
   //command using xf86 keys
   {0,                             XF86XK_AudioMute,           spawn,  {.v = mute}},
