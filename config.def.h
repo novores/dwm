@@ -4,21 +4,21 @@
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 5;        /* gaps between windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
-static const unsigned int systrayspacing = 2;   /* systray spacing */
-static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray        = 1;     /* 0 means no systray */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const double activeopacity   = 1.0f;     /* Window opacity when it's focused (0 <= opacity <= 1) */
-static const double inactiveopacity = 0.875f;   /* Window opacity when it's inactive (0 <= opacity <= 1) */
-static       Bool bUseOpacity       = True;     /* Starts with opacity on any unfocused windows */
-static const char *fonts[]          = { "JetBrainsMono Nerd Font:pixelsize=12:antialias=true:autohint=true" };
-static char dmenufont[]       = "JetBrainsMono Nerd Font:pixelsize=12:antialias=true:autohint=true";
+static const unsigned int borderpx        = 2;        /* border pixel of windows */
+static const unsigned int gappx           = 5;        /* gaps between windows */
+static const unsigned int snap            = 32;       /* snap pixel */
+static const unsigned int systraypinning  = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayonleft   = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
+static const unsigned int systrayspacing  = 2;   /* systray spacing */
+static const int systraypinningfailfirst  = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray              = 1;     /* 0 means no systray */
+static const int showbar                  = 1;        /* 0 means no bar */
+static const int topbar                   = 1;        /* 0 means bottom bar */
+static const double activeopacity         = 1.0f;     /* Window opacity when it's focused (0 <= opacity <= 1) */
+static const double inactiveopacity       = 0.875f;   /* Window opacity when it's inactive (0 <= opacity <= 1) */
+static       Bool bUseOpacity             = True;     /* Starts with opacity on any unfocused windows */
+static const char *fonts[]                = { "JetBrainsMono Nerd Font:pixelsize=12:antialias=true:autohint=true" };
+static char dmenufont[]                   = "JetBrainsMono Nerd Font:pixelsize=12:antialias=true:autohint=true";
 static const char normbgcolor[]           = "#1E1E2E";
 static const char normfgcolor[]           = "#CDD6F4";
 static const char normbordercolor[]       = "#CDD6F4";
@@ -38,7 +38,7 @@ static const char *const autostart[] = {
   "xbanish", NULL,
   "usermount", NULL,
   "xbacklight", "-set", "50", NULL,
-  "sh", "-c", "xset s 240 60; xset dpms 301;xss-lock -n ~/.local/bin/dim-screen.sh -- betterlockscreen --lock &", NULL,
+  "sh", "-c", "xss-lock -n ~/.local/bin/dim-screen.sh -- betterlockscreen --lock &", NULL,
   "xrdb", "/home/novores/.Xresources", NULL,
   "sh", "-c", "/home/novores/.local/bin/dwmstatus", NULL,
   "sh", "-c", "/home/novores/.local/bin/battery.sh", NULL,
@@ -60,10 +60,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
+	/* class                    instance    title       tags mask     isfloating   monitor */
+  {"st",                      NULL,       NULL,       0,            1,           -1},
   {"qutebrowser",             NULL,       NULL,       1 << 1,       0,           -1},
   {"firefox",                 NULL,       NULL,       1 << 1,       0,           -1},
-  {"Soffice",             NULL,       NULL,       1 << 2,       0,           -1},
+  {"Soffice",                 NULL,       NULL,       1 << 2,       0,           -1},
   {"Inkscape",                NULL,       NULL,       1 << 3,       0,           -1},
   {"Gimp",                    NULL,       NULL,       1 << 3,       0,           -1},
   {"SimpleScreenRecorder",    NULL,       NULL,       0,            1,           -1},
@@ -105,7 +106,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "1"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-p", "Apps", "-m", dmenumon, "-fn", dmenufont, "-nb", selfgcolor, "-nf", normbgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-hp", "firefox,inkscape,qutebrowser,localc,lobase,lowriter,android-file-transfer,gimp,nextcloud,alacritty,steam,obs,shotcut,pavucontrol,lxappearance, poweroff, reboot, sleep", NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 static const char *volup[] = {"pamixer", "-i", "2", NULL};
 static const char *voldown[] = {"pamixer", "-d", "2", NULL};
 static const char *mute[] = {"pamixer", "-t", NULL};
@@ -190,16 +191,10 @@ static const Key keys[] = {
   // Misc
   {ALTKEY,                        XK_m,       spawn,        SHCMD("mpd && dunstify 'mpd' 'online'")},
   {ALTKEY|ShiftMask,              XK_m,       spawn,        SHCMD("pkill mpd && dunstify 'mpd' 'offline'")},
-  {ALTKEY,                        XK_Left,    spawn,        {.v = mpcprev}},
-  {ALTKEY,                        XK_Right,   spawn,        {.v = mpcnext}},
-  {ALTKEY,                        XK_Up,      spawn,        {.v = mpcpl}},
   {ALTKEY,                        XK_Down,    spawn,        SHCMD("mpc stop")},
-  {ALTKEY,                        XK_p,       spawn,        SHCMD("rbwmenu")},
-  {ALTKEY,                        XK_t,       spawn,        SHCMD("transmenu")},
-  {ALTKEY,                        XK_i,       spawn,        {.v = volup}},
-  {ALTKEY,                        XK_d,       spawn,        {.v = voldown}},
-  {ALTKEY|ControlMask,            XK_i,       spawn,        {.v = brup}},
-  {ALTKEY|ControlMask,            XK_d,       spawn,        {.v = brdown}},
+  {MODKEY,                        XK_F1,       spawn,        SHCMD("rbwmenu")},
+  {MODKEY,                        XK_F2,       spawn,        SHCMD("transmenu")},
+  {MODKEY,                        XK_F3,       spawn,        SHCMD("st -e broot")},
 };
 
 /* button definitions */
