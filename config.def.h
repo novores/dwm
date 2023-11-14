@@ -25,11 +25,13 @@ static const char normbordercolor[]       = "#CDD6F4";
 static const char selbgcolor[]            = "#1E1E2E";
 static const char selfgcolor[]            = "#A6E3A1";
 static const char selbordercolor[]        = "#A6E3A1";
+static const char col_urgborder[]   = "#ff0000";
 static const char *colors[][3] = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
        [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
        [SchemeTitle]  = { selfgcolor, selbgcolor, selbordercolor  },
+       [SchemeUrg]  = { selbordercolor, selfgcolor,  col_urgborder  },
 };
 
 static const char *const autostart[] = {
