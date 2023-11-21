@@ -15,21 +15,21 @@ static const int showsystray              = 1;     /* 0 means no systray */
 static const int showbar                  = 1;        /* 0 means no bar */
 static const int topbar                   = 1;        /* 0 means bottom bar */
 static const double activeopacity         = 1.0f;     /* Window opacity when it's focused (0 <= opacity <= 1) */
-static const double inactiveopacity       = 0.875f;   /* Window opacity when it's inactive (0 <= opacity <= 1) */
+static const double inactiveopacity       = 1.0f;   /* Window opacity when it's inactive (0 <= opacity <= 1) */
 static       Bool bUseOpacity             = True;     /* Starts with opacity on any unfocused windows */
 static const char *fonts[]                = { "JetBrainsMono Nerd Font:pixelsize=12:antialias=true:autohint=true" };
 static char dmenufont[]                   = "JetBrainsMono Nerd Font:pixelsize=12:antialias=true:autohint=true";
 static const char normbgcolor[]           = "#1E1E2E";
-static const char normfgcolor[]           = "#CDD6F4";
+static const char normfgcolor[]           = "#585767";
 static const char normbordercolor[]       = "#CDD6F4";
 static const char selbgcolor[]            = "#1E1E2E";
 static const char selfgcolor[]            = "#A6E3A1";
 static const char selbordercolor[]        = "#A6E3A1";
-static const char col_urgborder[]   = "#ff0000";
-static const char *colors[][3] = {
+static const char col_urgborder[]         = "#ff0000";
+static const char *colors[][3]            = {
        /*               fg           bg           border   */
-       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbgcolor },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  normbgcolor  },
        [SchemeTitle]  = { selfgcolor, selbgcolor, selbordercolor  },
        [SchemeUrg]  = { selbordercolor, selfgcolor,  col_urgborder  },
 };
@@ -40,20 +40,28 @@ static const char *const autostart[] = {
   "xbanish", NULL,
   "usermount", NULL,
   "xbacklight", "-set", "50", NULL,
-  "sh", "-c", "xss-lock -n ~/.local/bin/dim-screen.sh -- betterlockscreen --lock &", NULL,
+  "sh", "-c", "xss-lock -n ~/.local/bin/dim-screen.sh --transfer-sleep-lock -- betterlockscreen --lock &", NULL,
   "xrdb", "/home/novores/.Xresources", NULL,
   "sh", "-c", "/home/novores/.local/bin/dwmstatus", NULL,
   "sh", "-c", "/home/novores/.local/bin/battery.sh", NULL,
-  "xcompmgr", "-c", "-C", "-t-5", "-l-5", "-r4.2", "-o.55", NULL,
+  // "xcompmgr", "-c", "-C", "-t-5", "-l-5", "-r4.2", "-o.55", NULL,
+  "picom", NULL,
   "setxkbmap", "-option", "grp:alt_shift_toggle", "us,ara", NULL,
 	NULL /* terminate */
 };
 
+static const char *tagsel[][2] = {
+   /*   fg         bg    */
+  { normfgcolor, normbgcolor }, /* norm */
+  { selfgcolor, selbgcolor  }, /* sel */
+  { normbordercolor,  normbgcolor }, /* occ but not sel */
+  { selbgcolor,  normfgcolor }, /* has pinned tag */
+};
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6" };
+static const char *tags[] = { "", "", "", "", "", "" };
 
 static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
-static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
+static const unsigned int ulinestroke	= 0;	/* thickness / height of the underline */
 static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
 static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 
