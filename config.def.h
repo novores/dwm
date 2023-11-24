@@ -17,15 +17,15 @@ static const int topbar                   = 1;        /* 0 means bottom bar */
 static const double activeopacity         = 1.0f;     /* Window opacity when it's focused (0 <= opacity <= 1) */
 static const double inactiveopacity       = 1.0f;   /* Window opacity when it's inactive (0 <= opacity <= 1) */
 static       Bool bUseOpacity             = True;     /* Starts with opacity on any unfocused windows */
-static const char *fonts[]                = { "JetBrainsMono Nerd Font:pixelsize=12:antialias=true:autohint=true" };
-static char dmenufont[]                   = "JetBrainsMono Nerd Font:pixelsize=12:antialias=true:autohint=true";
+static const char *fonts[]                = { "JetBrainsMono NF:pixelsize=12:antialias=true:autohint=true" };
+static char dmenufont[]                   = "JetBrainsMono NF:pixelsize=12:antialias=true:autohint=true";
 static const char normbgcolor[]           = "#1E1E2E";
 static const char normfgcolor[]           = "#585767";
-static const char normbordercolor[]       = "#CDD6F4";
+static const char normbordercolor[]       = "#f8f8f2";
 static const char selbgcolor[]            = "#1E1E2E";
-static const char selfgcolor[]            = "#A6E3A1";
-static const char selbordercolor[]        = "#A6E3A1";
-static const char col_urgborder[]         = "#ff0000";
+static const char selfgcolor[]            = "#ABE9B3";
+static const char selbordercolor[]        = "#ABE9B3";
+static const char col_urgborder[]         = "#F28FAD";
 static const char *colors[][3]            = {
        /*               fg           bg           border   */
        [SchemeNorm] = { normfgcolor, normbgcolor, normbgcolor },
@@ -35,7 +35,7 @@ static const char *colors[][3]            = {
 };
 
 static const char *const autostart[] = {
-  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/feet-on-the-dashboard.png", NULL,
+  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/gradient-synth-cat.png", NULL,
   "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
   "xbanish", NULL,
   "usermount", NULL,
@@ -58,7 +58,9 @@ static const char *tagsel[][2] = {
   { selbgcolor,  normfgcolor }, /* has pinned tag */
 };
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6" };
+static const char *tagsalt[] = { "", "", "", "", "", "" };
+static const int momentaryalttags = 0; /* 1 means alttags will show only when key is held down*/
 
 static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke	= 0;	/* thickness / height of the underline */
@@ -71,7 +73,6 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class                    instance    title       tags mask     isfloating   monitor */
-  {"st",                      NULL,       NULL,       0,            1,           -1},
   {"qutebrowser",             NULL,       NULL,       1 << 1,       0,           -1},
   {"firefox",                 NULL,       NULL,       1 << 1,       0,           -1},
   {"Soffice",                 NULL,       NULL,       1 << 2,       0,           -1},
@@ -116,7 +117,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "1"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-p", "Apps", "-m", dmenumon, "-fn", dmenufont, "-nb", selfgcolor, "-nf", normbgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-hp", "firefox,inkscape,qutebrowser,localc,lobase,lowriter,android-file-transfer,gimp,nextcloud,alacritty,steam,obs,shotcut,pavucontrol,lxappearance, poweroff, reboot, sleep", NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *termcmd[]  = { "st", NULL };
 static const char *volup[] = {"pamixer", "-i", "2", NULL};
 static const char *voldown[] = {"pamixer", "-d", "2", NULL};
 static const char *mute[] = {"pamixer", "-t", NULL};
@@ -174,6 +175,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_n,      togglealttag,   {0} },
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
