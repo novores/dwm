@@ -4,7 +4,7 @@
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* appearance */
-static const unsigned int borderpx        = 2;        /* border pixel of windows */
+static const unsigned int borderpx        = 0;        /* border pixel of windows */
 static const unsigned int gappx           = 5;        /* gaps between windows */
 static const unsigned int snap            = 32;       /* snap pixel */
 static const unsigned int systraypinning  = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -35,7 +35,7 @@ static const char *colors[][3]            = {
 };
 
 static const char *const autostart[] = {
-  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/gradient-synth-cat.png", NULL,
+  "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/su-san-lee-E_eWwM29wfU-unsplash.jpg", NULL,
   "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
   "xbanish", NULL,
   "usermount", NULL,
@@ -116,7 +116,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "1"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-p", "Apps", "-m", dmenumon, "-fn", dmenufont, "-nb", selfgcolor, "-nf", normbgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-hp", "firefox,inkscape,qutebrowser,localc,lobase,lowriter,android-file-transfer,gimp,nextcloud,alacritty,steam,obs,shotcut,pavucontrol,lxappearance, poweroff, reboot, sleep", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-p", "Apps", "-m", dmenumon, "-fn", dmenufont, "-nb", selfgcolor, "-nf", normbgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-hp", "firefox,inkscape,qutebrowser,localc,lobase,lowriter,loimpress,android-file-transfer,gimp,nextcloud,alacritty,steam,obs,shotcut,pavucontrol,lxappearance,poweroff,reboot,sleep", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *volup[] = {"pamixer", "-i", "2", NULL};
 static const char *voldown[] = {"pamixer", "-d", "2", NULL};
@@ -201,12 +201,12 @@ static const Key keys[] = {
   {0,                             XF86XK_MonBrightnessDown,   spawn,  {.v = brdown}},
 
   // Misc
-  {ALTKEY,                        XK_m,       spawn,        SHCMD("mpd && dunstify 'mpd' 'online'")},
-  {ALTKEY|ShiftMask,              XK_m,       spawn,        SHCMD("pkill mpd && dunstify 'mpd' 'offline'")},
+  {ALTKEY,                        XK_m,       spawn,        SHCMD("[[ $(ls $HOME/.local/share/mpd/pid) ]] && mpd --kill || mpd")},
   {ALTKEY,                        XK_Down,    spawn,        SHCMD("mpc stop")},
   {MODKEY,                        XK_F1,       spawn,        SHCMD("rbwmenu")},
   {MODKEY,                        XK_F2,       spawn,        SHCMD("transmenu")},
-  {MODKEY,                        XK_F3,       spawn,        SHCMD("st -e broot")},
+  {MODKEY,                        XK_F3,       spawn,        SHCMD("dmenu-bluetooth")},
+  {MODKEY,                        XK_F4,       spawn,        SHCMD("st -e broot")},
 };
 
 /* button definitions */
