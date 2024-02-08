@@ -17,7 +17,7 @@ static const int topbar                   = 1;        /* 0 means bottom bar */
 static const double activeopacity         = 1.0f;     /* Window opacity when it's focused (0 <= opacity <= 1) */
 static const double inactiveopacity       = 1.0f;   /* Window opacity when it's inactive (0 <= opacity <= 1) */
 static       Bool bUseOpacity             = True;     /* Starts with opacity on any unfocused windows */
-static const char *fonts[]                = { "JetBrainsMono NF:pixelsize=12:antialias=true:autohint=true" };
+static const char *fonts[]                = { "JetBrainsMono NF:pixelsize=12:style=Bold:antialias=true:autohint=true" };
 static char dmenufont[]                   = "JetBrainsMono NF:pixelsize=12:antialias=true:autohint=true";
 static const char normbgcolor[]           = "#1E1E2E";
 static const char normfgcolor[]           = "#585767";
@@ -38,6 +38,7 @@ static const char *const autostart[] = {
   "feh", "--bg-fill", "/home/novores/Pictures/wallpapers/su-san-lee-E_eWwM29wfU-unsplash.jpg", NULL,
   "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
   "xbanish", NULL,
+  "dunst", NULL,
   "usermount", NULL,
   "xbacklight", "-set", "50", NULL,
   "sh", "-c", "xss-lock -n ~/.local/bin/dim-screen.sh --transfer-sleep-lock -- betterlockscreen --lock &", NULL,
