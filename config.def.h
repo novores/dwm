@@ -16,7 +16,7 @@ static const int showbar                  = 1;        /* 0 means no bar */
 static const int topbar                   = 1;        /* 0 means bottom bar */
 static const double activeopacity         = 1.0f;     /* Window opacity when it's focused (0 <= opacity <= 1) */
 static const double inactiveopacity       = 1.0f;   /* Window opacity when it's inactive (0 <= opacity <= 1) */
-static       Bool bUseOpacity             = True;     /* Starts with opacity on any unfocused windows */
+static       Bool bUseOpacity             = False;     /* Starts with opacity on any unfocused windows */
 static const char *fonts[]                = { "JetBrainsMono NF:pixelsize=12:style=Bold:antialias=true:autohint=true" };
 static char dmenufont[]                   = "JetBrainsMono NF:pixelsize=12:antialias=true:autohint=true";
 static const char normbgcolor[]           = "#1E1E2E";
@@ -127,10 +127,11 @@ static const char *mpcnext[] = {"mpc", "next", NULL};
 static const char *mpcprev[] = {"mpc", "prev", NULL};
 static const char *brup[] = {"xbacklight", "-inc", "2", NULL};
 static const char *brdown[] = {"xbacklight", "-dec", "2", NULL};
+static const char *lock[] = {"betterlockscreen", "--lock", NULL};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,      spawn,          SHCMD("rofi -show drun") },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -200,6 +201,7 @@ static const Key keys[] = {
   {0,                             XF86XK_AudioPrev,           spawn,  {.v = mpcprev}},
   {0,                             XF86XK_MonBrightnessUp,     spawn,  {.v = brup}},
   {0,                             XF86XK_MonBrightnessDown,   spawn,  {.v = brdown}},
+  {0,                             XF86XK_ScreenSaver,         spawn,  {.v = lock}},
 
   // Misc
   {ALTKEY,                        XK_m,       spawn,        SHCMD("[[ $(ls $HOME/.local/share/mpd/pid) ]] && mpd --kill || mpd")},
