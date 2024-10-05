@@ -46,7 +46,7 @@ static const char *const autostart[] = {
   "sh", "-c", "/home/novores/.local/bin/dwmstatus", NULL,
   "sh", "-c", "/home/novores/.local/bin/battery.sh", NULL,
   // "xcompmgr", "-c", "-C", "-t-5", "-l-5", "-r4.2", "-o.55", NULL,
-  "picom", NULL,
+  "picom", "--config", "/home/novores/.config/picom/picom-dwm.conf", NULL,
   "setxkbmap", "-option", "grp:alt_shift_toggle", "us,ara", NULL,
 	NULL /* terminate */
 };
@@ -119,14 +119,9 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "1"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-p", "Apps", "-m", dmenumon, "-fn", dmenufont, "-nb", selfgcolor, "-nf", normbgcolor, "-sb", selbgcolor, "-sf", selfgcolor, "-hp", "firefox,inkscape,qutebrowser,localc,lobase,lowriter,loimpress,android-file-transfer,gimp,nextcloud,alacritty,steam,obs,shotcut,pavucontrol,lxappearance,poweroff,reboot,sleep", NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *volup[] = {"pamixer", "-i", "2", NULL};
-static const char *voldown[] = {"pamixer", "-d", "2", NULL};
-static const char *mute[] = {"pamixer", "-t", NULL};
 static const char *mpcpl[] = {"mpc", "toggle", NULL};
 static const char *mpcnext[] = {"mpc", "next", NULL};
 static const char *mpcprev[] = {"mpc", "prev", NULL};
-static const char *brup[] = {"xbacklight", "-inc", "2", NULL};
-static const char *brdown[] = {"xbacklight", "-dec", "2", NULL};
 static const char *lock[] = {"betterlockscreen", "--lock", NULL};
 
 static const Key keys[] = {
@@ -193,14 +188,14 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 
   //command using xf86 keys
-  {0,                             XF86XK_AudioMute,           spawn,  {.v = mute}},
-  {0,                             XF86XK_AudioRaiseVolume,    spawn,  {.v = volup}},
-  {0,                             XF86XK_AudioLowerVolume,    spawn,  {.v = voldown}},
+  {0,                             XF86XK_AudioMute,           spawn,  SHCMD("pamixer -t | progress-notify.sh muted")},
+  {0,                             XF86XK_AudioRaiseVolume,    spawn,  SHCMD("pamixer -i 2; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga && pamixer --get-volume | progress-notify.sh audio")},
+  {0,                             XF86XK_AudioLowerVolume,    spawn,  SHCMD("pamixer -d 2; paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga && pamixer --get-volume | progress-notify.sh audio")},
   {0,                             XF86XK_AudioPlay,           spawn,  {.v = mpcpl}},
   {0,                             XF86XK_AudioNext,           spawn,  {.v = mpcnext}},
   {0,                             XF86XK_AudioPrev,           spawn,  {.v = mpcprev}},
-  {0,                             XF86XK_MonBrightnessUp,     spawn,  {.v = brup}},
-  {0,                             XF86XK_MonBrightnessDown,   spawn,  {.v = brdown}},
+  {0,                             XF86XK_MonBrightnessUp,     spawn,  SHCMD("xbacklight -inc 1 && xbacklight -get | progress-notify.sh brightness")},
+  {0,                             XF86XK_MonBrightnessDown,   spawn,  SHCMD("xbacklight -dec 1 && xbacklight -get | progress-notify.sh brightness")},
   {0,                             XF86XK_ScreenSaver,         spawn,  {.v = lock}},
 
   // Misc
