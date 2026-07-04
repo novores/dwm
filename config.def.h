@@ -46,7 +46,7 @@ static const char *const autostart[] = {
   "sh", "-c", "/home/novores/.local/bin/dwmstatus", NULL,
   "sh", "-c", "/home/novores/.local/bin/battery.sh", NULL,
   // "xcompmgr", "-c", "-C", "-t-5", "-l-5", "-r4.2", "-o.55", NULL,
-  "picom", "--config", "/home/novores/.config/picom/picom-dwm.conf", NULL,
+  "picom", "--config", "/home/novores/.config/picom/picom.conf", NULL,
   "setxkbmap", "-option", "grp:alt_shift_toggle", "us,ara", NULL,
 	NULL /* terminate */
 };
